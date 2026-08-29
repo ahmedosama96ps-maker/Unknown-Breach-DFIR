@@ -1,0 +1,44 @@
+/*
+  Unknown Breach DFIR Project
+  Velociraptor VQL queries used against the forensic image mounted as G:\
+*/
+
+/* 1. Search for BCTextEncoder.exe */
+SELECT FullPath, Size, Mtime
+FROM glob(globs="G:\\**\\BCTextEncoder.exe")
+
+/*
+Expected project finding:
+G:\USERS\Jimmy Wilson\Desktop\BCTextEncoder.exe
+*/
+
+
+/* 2. Check common Startup folder persistence locations */
+SELECT FullPath, Size, Mtime
+FROM glob(globs=[
+  "G:\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\*",
+  "G:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\*"
+])
+
+/*
+Project finding:
+Only desktop.ini was identified in Jimmy Wilson's Startup folder.
+*/
+
+
+/* 3. Search Prefetch for selected execution traces */
+SELECT FullPath, Size, Mtime
+FROM glob(globs=[
+  "G:\\Windows\\Prefetch\\*BCTextEncoder*.pf",
+  "G:\\Windows\\Prefetch\\*cmd*.pf",
+  "G:\\Windows\\Prefetch\\*powershell*.pf",
+  "G:\\Windows\\Prefetch\\*wscript*.pf",
+  "G:\\Windows\\Prefetch\\*cscript*.pf",
+  "G:\\Windows\\Prefetch\\*rundll32*.pf"
+])
+
+/*
+Project finding:
+G:\Windows\Prefetch\RUNDLL32.EXE-411A328D.pf
+RUNDLL32.EXE is a common Windows process and was not treated as suspicious by itself.
+*/

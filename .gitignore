@@ -1,0 +1,27 @@
+# Raw forensic evidence - do not commit
+*.E01
+*.E02
+*.raw
+*.dd
+*.img
+*.vmdk
+*.vhd
+*.vhdx
+*.mem
+*.dmp
+
+# Autopsy / case working data
+*.db
+CaseOutput/
+AutopsyCase/
+
+# OS / editor files
+Thumbs.db
+.DS_Store
+~$*
+*.tmp
+*.bak
+
+# Archives created locally
+*.zip
+*.7z
