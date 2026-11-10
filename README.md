@@ -120,6 +120,10 @@ Unknown-Breach-DFIR-GitHub/
 - Timeline reconstruction
 - Evidence correlation and forensic reporting
 
+## Timeline reliability and reproducibility
+
+The [timeline](analysis/timeline.md) now explicitly identifies limits on timestamp interpretation, source-record references, and timezone assumptions. The displayed timestamps are a summary of the original investigation; this revision did **not** re-extract raw timestamps from the forensic image. For stronger evidence, preserve per-artifact paths, record IDs, timestamp types, timezone handling, and provenance links in a future controlled re-analysis.
+
 ## Important Forensic Notes
 
 This repository distinguishes **confirmed evidence** from investigative hypotheses. A ShimCache entry can support historical file presence or possible execution traces but does not independently prove execution. Likewise, USB device artifacts confirm device connection but do not by themselves prove that a specific file was transferred.
